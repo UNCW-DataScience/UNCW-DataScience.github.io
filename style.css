@@ -419,7 +419,7 @@ footer {
 
 .employment-list li {
   display: grid;
-  grid-template-columns: 150px 1fr;
+  grid-template-columns: 160px 1fr;
   gap: 16px;
   padding: 10px 0;
   border-bottom: 1px solid var(--rule);
