@@ -108,10 +108,11 @@
               </div>
             </li>
             <li>
-              <span class="years">Oct 30th, Friday 12pm</span>
+              <span class="years">Oct 30th, Friday 12pm, &nbsp; &nbsp;&nbsp;&nbsp;@FA 136</span>
               <div>
                 <div class="role"><a href="https://gabrielkeith.dev/" target="_blank">Gabriel Keith</a></div>
-                <div class="inst">Value function architecture for fine tuning LLMs </div>
+                <div class="inst"><a href="#gkeith_abstract" style = "color:var(--ink);">Ladder-Style Value Transformers for LLM Reinforcement Learning </a>
+                </div>
               </div>
             </li>
             <li>
@@ -196,18 +197,50 @@ Ask Bryan directly about career strategy, industry trends, and breaking into AI-
 
           <h3 id="desell_abstract"><em>Understanding NeuroEvolution of Parameterized Quantum Circuits Using Agentic Systems</em> <span style="font-weight: 400;"> - T. Desell</span></h3>
           <p> NeuroEvolution is the process of utilizing evolutionary algorithms to automate the design and training of neural networks.
-Our recent work developing the Evolutionary eXploration of Augmenting Quantum Circuits (EXAQC) framework has shown
-that NeuroEvolution strategies can also be applied to quantum machine learning. In particular, EXAQC has shown it is
-possible to design and train parameterized quantum circuits which can act as more parameter efficient components within
-larger neural models across classification, reinforcement learning and vision tasks. However, NeuroEvolution algorithms
-like EXAQC can train and evaluate tens of thousands of models in a single run and these runs further involve complex
-population and inheritance dynamics which can be challenging to understand at such scales. In addition to presenting
-EXAQC and current results, this talk will focus on how we have designed EXAQC in such a way that its NeuroEvolution runs
-can be easily stored and accessed by a Model Context Protocol (MCP) server, allowing agents to examine ongoing and
-historical results to provide quicker and deeper insights into their performance, bottlenecks and even find bugs. The talk
-will put a particular focus on generic takeaways for how to effectively design similar frameworks to take advantage of
-modern agentic systems.
-</p>
+          Our recent work developing the Evolutionary eXploration of Augmenting Quantum Circuits (EXAQC) framework has shown
+          that NeuroEvolution strategies can also be applied to quantum machine learning. In particular, EXAQC has shown it is
+          possible to design and train parameterized quantum circuits which can act as more parameter efficient components within
+          larger neural models across classification, reinforcement learning and vision tasks. However, NeuroEvolution algorithms
+          like EXAQC can train and evaluate tens of thousands of models in a single run and these runs further involve complex
+          population and inheritance dynamics which can be challenging to understand at such scales. In addition to presenting
+          EXAQC and current results, this talk will focus on how we have designed EXAQC in such a way that its NeuroEvolution runs
+          can be easily stored and accessed by a Model Context Protocol (MCP) server, allowing agents to examine ongoing and
+          historical results to provide quicker and deeper insights into their performance, bottlenecks and even find bugs. The talk
+          will put a particular focus on generic takeaways for how to effectively design similar frameworks to take advantage of
+          modern agentic systems.
+          </p>
+
+          <h3 id="gkeith_abstract"><em>Ladder-Style Value Transformers for LLM Reinforcement Learning</em> <span style="font-weight: 400;"> - G. Keith</span></h3>
+          <p> Critic-free methods such as GRPO have become the default for
+reinforcement learning on language models, in part because learned
+critics have been either expensive (a value model at LLM scale) or
+weak (a value head on the final hidden state, which competes with the
+next-token objective). GRPO, however, assigns a single sequence-level
+advantage per rollout, which ignores the temporal structure of
+multi-turn, partially observable tasks. Its group normalization can
+also amplify small differences in dense partial rewards over sparser
+terminal rewards. <br>
+
+I present a lightweight critic inspired by ladder side-turning. A
+small transformer (about 25.8M parameters, 0.6% of the total) reads
+intermediate activations from several layers of the frozen base model
+through stop-gradient gated projections. It has its own attention
+layers, so it can integrate history independently of the policy. The
+policy is trained with LoRA, and the critic produces token-level
+values trained with bootstrapped GAE.<br>
+
+I fine-tune Qwen3-4B-Instruct-2507 on Wordle, modeled as a token-level
+POMDP. PPO with this critic raises the solve rate from 1% to 99% in 11
+hours on a single RTX 5090, with no SFT warmup and no KL penalty, and
+it adds only about 6% update overhead compared with GRPO. Cold-start
+GRPO stays near a 1% solve rate, stuck maximizing partial credit. The
+value transformer outperforms a final-latent critic in solve rate,
+stability across seeds, and explained variance (0.94 vs 0.82).
+Bootstrapped returns outperform Monte Carlo returns, which diverged in
+half of the runs. These results suggest that cheap, accurate value
+estimation makes actor-critic methods competitive again for multi-step
+LLM training
+          </p>
 
         </div>
       
